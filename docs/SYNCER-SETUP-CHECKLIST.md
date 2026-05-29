@@ -8,7 +8,7 @@
 ## 仓库侧（终端）
 
 ```bash
-cd "/Users/yy/Documents/3b1b 复刻"
+cd "$(git rev-parse --show-toplevel)"
 npm install
 npx quartz plugin install --from-config
 npm run verify:pipeline    # 检查 baseUrl、workflow、黑名单等

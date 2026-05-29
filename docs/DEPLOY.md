@@ -6,7 +6,7 @@
 ## 1. 推送代码
 
 ```bash
-cd "/Users/yy/Documents/3b1b 复刻"
+cd "$(git rev-parse --show-toplevel)"
 git add .
 git commit -m "Initialize Quartz v5 academic blog"
 git branch -M main

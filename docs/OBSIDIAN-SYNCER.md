@@ -72,7 +72,7 @@ obsidian quartz-syncer:publish
 Syncer 推送到 GitHub 后，在本地拉取并预览：
 
 ```bash
-cd "/Users/yy/Documents/3b1b 复刻"
+cd "$(git rev-parse --show-toplevel)"
 git pull
 npm run dev
 ```

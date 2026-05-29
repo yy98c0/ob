@@ -1,6 +1,6 @@
 # 学术笔记博客（Quartz v5）
 
-个人数学、物理与哲学笔记静态站，视觉参考 [3Blue1Brown](https://www.3blue1brown.com/)，内容来自 Obsidian。
+个人数学、物理与哲学笔记静态站，基于 Quartz v5 默认样式，内容来自 Obsidian。
 
 ## 技术栈
 
@@ -25,9 +25,12 @@ npm run sync     # 与 GitHub 同步
 
 ## 配置 GitHub Pages
 
-1. 将本仓库推送到 GitHub
+仓库：[yy98c0/ob](https://github.com/yy98c0/ob)  
+站点：`https://yy98c0.github.io/ob/`
+
+1. 将本仓库推送到 GitHub（见 [docs/DEPLOY.md](docs/DEPLOY.md)）
 2. Settings → Pages → Source 选 **GitHub Actions**
-3. 将 `quartz.config.yaml` 中 `baseUrl` 改为 `你的用户名.github.io/仓库名`
+3. `quartz.config.yaml` 中 `baseUrl` 已为 `yy98c0.github.io/ob`
 4. push 后 Actions 自动部署
 
 ## Obsidian 发布
@@ -39,5 +42,4 @@ npm run sync     # 与 GitHub 同步
 - `content/` — 站点 Markdown（Syncer 写入 + 本地测试页）
 - `quartz/plugins/transformers/tikz.ts` — TikZ 构建插件
 - `docs/TIKZ-QUARTZ.md` — TikZ 在 Quartz 中的渲染技术说明（架构、管线、排错）
-- `quartz/styles/custom.scss` — 3b1b 风格样式
-- `quartz/static/grid-background.js` — 透视网格背景
+- `quartz/styles/custom.scss` — 自定义样式（当前为 Quartz 默认空模板）

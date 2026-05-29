@@ -45,6 +45,12 @@ export default (() => {
       <head>
         <title>{title}</title>
         <meta charSet="utf-8" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.setAttribute("saved-theme","light");document.documentElement.style.colorScheme="light";try{localStorage.setItem("theme","light")}catch(e){}`,
+          }}
+        />
+        <meta name="color-scheme" content="light" />
         {coreStylesheet && <link rel="preload" href={coreStylesheet} as="style" />}
         {coreScript && coreScript.contentType === "external" && (
           <link rel="preload" href={coreScript.src} as="script" />

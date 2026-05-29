@@ -12,7 +12,7 @@ import { BLOCKED_PREFIXES, VAULT } from "./file-policy.mjs"
 const ROOT = process.cwd()
 const PLACEHOLDER_BASE_URLS = new Set([
   "quartz.jzhao.xyz",
-  "YOUR_USERNAME.github.io/3b1b-blog",
+  "YOUR_USERNAME.github.io/your-repo",
   "your-username.github.io/your-repo",
 ])
 

@@ -1,5 +1,5 @@
 {
-  "name": "3b1b-academic-blog",
+  "name": "academic-notes-blog",
   "description": "个人数学物理与哲学笔记静态博客（Quartz v5）",
   "private": true,
   "version": "0.1.0",
@@ -49,9 +49,6 @@
   "dependencies": {
     "@clack/prompts": "^0.11.0",
     "@floating-ui/dom": "^1.7.4",
-    "@fontsource-variable/figtree": "^5.2.10",
-    "@fontsource-variable/sometype-mono": "^5.2.7",
-    "@fontsource-variable/source-serif-4": "^5.2.9",
     "@myriaddreamin/rehype-typst": "^0.6.0",
     "@napi-rs/simple-git": "0.1.22",
     "ansi-truncate": "^1.4.0",

@@ -1,204 +1,227 @@
 @use "./variables.scss" as *;
 
-/* 仅保留导入的 Obsidian snippets 与 callout 图标移除，其余恢复 Quartz 5 默认样式 */
+// Obsidian snippets: theorem.css + ZH- Academic.css (adapted for Quartz)
 
-/* theorem.css */
-.callout[data-callout="theorem"],
-.callout[data-callout="definition"],
-.callout[data-callout="lemma"],
-.callout[data-callout="proposition"] {
-  background-color: var(--tcb-frame);
-  border: 2px solid var(--tcb-frame);
-  border-radius: 8px;
-  box-shadow: none;
-  padding: 0;
-  overflow: hidden;
-  margin-block: 1em;
+// ---------------------------------------------------------------------------
+// theorem.css — math theorem boxes & note-style callouts
+// ---------------------------------------------------------------------------
+
+@mixin hide-callout-chrome {
   --callout-icon: none;
-  color: var(--tcb-body-text);
+
+  .callout-icon {
+    display: none;
+  }
 }
 
-.callout[data-callout="theorem"] .callout-title,
-.callout[data-callout="definition"] .callout-title,
-.callout[data-callout="lemma"] .callout-title,
-.callout[data-callout="proposition"] .callout-title {
-  background-color: transparent;
-  color: #ffffff;
-  padding: 4px 10px;
-  font-weight: normal;
-  letter-spacing: normal;
-  border-bottom: none;
+// Part 1: theorem, definition, lemma, proposition
+.callout {
+  &[data-callout="theorem"],
+  &[data-callout="definition"],
+  &[data-callout="lemma"],
+  &[data-callout="proposition"] {
+    @include hide-callout-chrome;
+
+    background-color: var(--tcb-frame);
+    border: 2px solid var(--tcb-frame);
+    border-radius: 8px;
+    box-shadow: none;
+    padding: 0;
+    overflow: hidden;
+    margin-block: 1em;
+    color: var(--tcb-body-text);
+
+    .callout-title {
+      background-color: transparent;
+      color: #ffffff;
+      padding: 4px 10px;
+      font-weight: normal;
+      letter-spacing: normal;
+      border-bottom: none;
+
+      .callout-title-inner,
+      .callout-title-inner > p {
+        color: #ffffff;
+        font-weight: normal;
+      }
+    }
+
+    .callout-content {
+      background-color: var(--tcb-bg);
+      padding: 8px 12px;
+
+      p {
+        margin: 0;
+        line-height: 1.3;
+      }
+    }
+  }
+
+  &[data-callout="theorem"] {
+    --tcb-frame: #4a6b8a;
+    --tcb-bg: #eff3f7;
+    --tcb-body-text: #222;
+  }
+
+  &[data-callout="definition"] {
+    --tcb-frame: #55705a;
+    --tcb-bg: #f2f7f3;
+    --tcb-body-text: #222;
+  }
+
+  &[data-callout="lemma"] {
+    --tcb-frame: #9c6655;
+    --tcb-bg: #fbf5f3;
+    --tcb-body-text: #222;
+  }
+
+  &[data-callout="proposition"] {
+    --tcb-frame: #4a7a80;
+    --tcb-bg: #f0f7f8;
+    --tcb-body-text: #222;
+  }
 }
 
-.callout[data-callout="theorem"] .callout-content,
-.callout[data-callout="definition"] .callout-content,
-.callout[data-callout="lemma"] .callout-content,
-.callout[data-callout="proposition"] .callout-content {
-  background-color: var(--tcb-bg);
-  padding: 8px 12px;
+:root[saved-theme="dark"] .callout {
+  &[data-callout="theorem"] {
+    --tcb-frame: #6d8eb0;
+    --tcb-bg: #2b303b;
+    --tcb-body-text: #ddd;
+  }
+
+  &[data-callout="definition"] {
+    --tcb-frame: #7ca082;
+    --tcb-bg: #2e332f;
+    --tcb-body-text: #ddd;
+  }
+
+  &[data-callout="lemma"] {
+    --tcb-frame: #c48e7c;
+    --tcb-bg: #362e2c;
+    --tcb-body-text: #ddd;
+  }
+
+  &[data-callout="proposition"] {
+    --tcb-frame: #6faeb5;
+    --tcb-bg: #2d3436;
+    --tcb-body-text: #ddd;
+  }
 }
 
-.callout[data-callout="theorem"] .callout-content p,
-.callout[data-callout="definition"] .callout-content p,
-.callout[data-callout="lemma"] .callout-content p,
-.callout[data-callout="proposition"] .callout-content p {
-  margin: 0;
-  line-height: 1.3;
+// Part 2: note, hint, attention (left border strip, no title)
+// Quartz normalizes Obsidian aliases: hint→tip, attention→warning
+.callout {
+  &[data-callout="note"],
+  &[data-callout="hint"],
+  &[data-callout="tip"],
+  &[data-callout="important"],
+  &[data-callout="attention"],
+  &[data-callout="warning"],
+  &[data-callout="caution"] {
+    @include hide-callout-chrome;
+
+    padding: 6px 10px;
+    margin-block: 1em;
+    border-radius: 0;
+    border-left-width: 4px;
+    border-left-style: solid;
+
+    .callout-title {
+      display: none;
+    }
+
+    .callout-content {
+      margin-top: 0;
+      padding-left: 5px;
+
+      p {
+        margin: 0;
+        line-height: 1.5;
+      }
+    }
+  }
 }
 
-.callout[data-callout="theorem"] {
-  --tcb-frame: #4a6b8a;
-  --tcb-bg: #eff3f7;
-  --tcb-body-text: #222;
+:root[saved-theme="light"] .callout,
+.callout {
+  &[data-callout="note"] {
+    background-color: rgb(242, 242, 255);
+    border-left-color: rgb(0, 0, 139);
+    color: black;
+  }
+
+  &[data-callout="hint"],
+  &[data-callout="tip"],
+  &[data-callout="important"] {
+    background-color: #f1f8f4;
+    border-left-color: #006400;
+    color: black;
+  }
+
+  &[data-callout="attention"],
+  &[data-callout="warning"],
+  &[data-callout="caution"] {
+    background-color: #fff5f5;
+    border-left-color: #b22222;
+    color: black;
+  }
 }
 
-.theme-dark .callout[data-callout="theorem"] {
-  --tcb-frame: #6d8eb0;
-  --tcb-bg: #2b303b;
-  --tcb-body-text: #ddd;
+:root[saved-theme="dark"] .callout {
+  &[data-callout="note"] {
+    background-color: rgba(20, 30, 80, 0.4);
+    border-left-color: rgb(80, 120, 220);
+    color: var(--text-normal);
+  }
+
+  &[data-callout="hint"],
+  &[data-callout="tip"],
+  &[data-callout="important"] {
+    background-color: rgba(20, 50, 20, 0.3);
+    border-left-color: #66bb6a;
+    color: var(--text-normal);
+  }
+
+  &[data-callout="attention"],
+  &[data-callout="warning"],
+  &[data-callout="caution"] {
+    background-color: rgba(60, 20, 20, 0.3);
+    border-left-color: #ef5350;
+    color: var(--text-normal);
+  }
 }
 
-.callout[data-callout="definition"] {
-  --tcb-frame: #55705a;
-  --tcb-bg: #f2f7f3;
-  --tcb-body-text: #222;
-}
-
-.theme-dark .callout[data-callout="definition"] {
-  --tcb-frame: #7ca082;
-  --tcb-bg: #2e332f;
-  --tcb-body-text: #ddd;
-}
-
-.callout[data-callout="lemma"] {
-  --tcb-frame: #9c6655;
-  --tcb-bg: #fbf5f3;
-  --tcb-body-text: #222;
-}
-
-.theme-dark .callout[data-callout="lemma"] {
-  --tcb-frame: #c48e7c;
-  --tcb-bg: #362e2c;
-  --tcb-body-text: #ddd;
-}
-
-.callout[data-callout="proposition"] {
-  --tcb-frame: #4a7a80;
-  --tcb-bg: #f0f7f8;
-  --tcb-body-text: #222;
-}
-
-.theme-dark .callout[data-callout="proposition"] {
-  --tcb-frame: #6faeb5;
-  --tcb-bg: #2d3436;
-  --tcb-body-text: #ddd;
-}
-
-.callout[data-callout="note"],
-.callout[data-callout="hint"],
-.callout[data-callout="attention"] {
-  --callout-icon: none;
-  padding: 6px 10px;
-  margin-block: 1em;
-  border-radius: 0;
-  border-left-width: 4px;
-  border-left-style: solid;
-}
-
-.callout[data-callout="note"] .callout-title,
-.callout[data-callout="hint"] .callout-title,
-.callout[data-callout="attention"] .callout-title {
-  display: none;
-}
-
-.callout[data-callout="note"] .callout-content,
-.callout[data-callout="hint"] .callout-content,
-.callout[data-callout="attention"] .callout-content {
-  margin-top: 0;
-  padding-left: 5px;
-}
-
-.callout[data-callout="note"] .callout-content p,
-.callout[data-callout="hint"] .callout-content p,
-.callout[data-callout="attention"] .callout-content p {
-  margin: 0;
-  line-height: 1.5;
-}
-
-.theme-light .callout[data-callout="note"] {
-  background-color: rgb(242, 242, 255);
-  border-left-color: rgb(0, 0, 139);
-  color: black;
-}
-
-.theme-dark .callout[data-callout="note"] {
-  background-color: rgba(20, 30, 80, 0.4);
-  border-left-color: rgb(80, 120, 220);
-  color: var(--text-normal);
-}
-
-.theme-light .callout[data-callout="hint"] {
-  background-color: #f1f8f4;
-  border-left-color: #006400;
-  color: black;
-}
-
-.theme-dark .callout[data-callout="hint"] {
-  background-color: rgba(20, 50, 20, 0.3);
-  border-left-color: #66bb6a;
-  color: var(--text-normal);
-}
-
-.theme-light .callout[data-callout="attention"] {
-  background-color: #fff5f5;
-  border-left-color: #b22222;
-  color: black;
-}
-
-.theme-dark .callout[data-callout="attention"] {
-  background-color: rgba(60, 20, 20, 0.3);
-  border-left-color: #ef5350;
-  color: var(--text-normal);
-}
-
+// Part 3: tipb
 .callout[data-callout="tipb"] {
-  --callout-icon: none;
+  @include hide-callout-chrome;
+
   background-color: #ebf5fa;
   border: 1.5px solid #9ab6c4;
   border-radius: 4px;
   padding: 0;
   overflow: hidden;
   color: #222;
+
+  .callout-title {
+    display: none;
+  }
+
+  .callout-content {
+    padding: 10px 15px;
+
+    p {
+      margin: 0;
+      line-height: 1.6;
+    }
+  }
 }
 
-.callout[data-callout="tipb"] .callout-title {
-  display: none;
-}
+// ---------------------------------------------------------------------------
+// ZH- Academic.css — layout & print (screen + @media print)
+// ---------------------------------------------------------------------------
 
-.callout[data-callout="tipb"] .callout-content {
-  padding: 10px 15px;
-}
-
-.callout[data-callout="tipb"] .callout-content p {
-  margin: 0;
-  line-height: 1.6;
-}
-
-/* 直接移除所有 callout 标题图标 */
-.callout .callout-title .callout-icon,
-.callout .callout-title .callout-title-inner > .callout-icon,
-.callout .callout-title .svg-icon {
-  display: none !important;
-}
-
-/* ZH-Academic.css */
-.markdown-source-view.mod-cm6 .HyperMD-list-line,
-.markdown-preview-view ul > li {
-  margin-left: 2em !important;
-}
-
-.markdown-preview-view ul > li:hover > .list-bullet:after {
-  background-color: var(--text-accent);
+article ul > li {
+  margin-left: 2em;
 }
 
 @media print {
@@ -217,7 +240,7 @@
   blockquote,
   .callout-content,
   .callout-content p,
-  .markdown-preview-view p {
+  article p {
     font-size: var(--pdf-font-size-body) !important;
     line-height: 1.6 !important;
   }
@@ -229,7 +252,12 @@
     text-align: center;
   }
 
-  h2,
+  h2 {
+    font-size: 16pt !important;
+    font-weight: bold;
+    text-align: left;
+  }
+
   h3,
   h4,
   h5,
@@ -239,18 +267,12 @@
     text-align: left;
   }
 
-  h2 {
-    font-size: 16pt !important;
-  }
-
-  code,
-  .cm-s-obsidian span.cm-inline-code {
+  code {
     font-size: var(--pdf-font-size-code) !important;
   }
 
   pre,
-  pre code,
-  .markdown-preview-view pre code {
+  pre code {
     font-size: var(--pdf-font-size-code) !important;
     line-height: 1.4 !important;
   }
@@ -274,5 +296,59 @@
   sub,
   .footnote-link {
     font-size: 0.8em !important;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Images — center all figures and raster images in article body
+// Use block + margin auto (not flex + fit-content) for Safari compatibility.
+// ---------------------------------------------------------------------------
+
+article {
+  p:has(> img) {
+    text-align: center;
+  }
+
+  a:has(> img) {
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
+  img {
+    display: block;
+    margin-inline: auto;
+    max-width: 100%;
+    height: auto;
+  }
+
+  figure:not([data-rehype-pretty-code-figure]),
+  .tikz-output {
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    margin-inline: auto;
+    box-sizing: border-box;
+  }
+
+  figure:not([data-rehype-pretty-code-figure]) svg,
+  .tikz-output svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-inline: auto;
+  }
+}
+
+// Older Safari without max-content: shrink-wrap via table layout
+@supports not (width: max-content) {
+  article {
+    a:has(> img),
+    figure:not([data-rehype-pretty-code-figure]),
+    .tikz-output {
+      display: table;
+      margin-inline: auto;
+    }
   }
 }

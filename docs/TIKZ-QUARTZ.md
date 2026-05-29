@@ -304,7 +304,7 @@ export function createHtmlProcessor(ctx: BuildCtx): QuartzHtmlProcessor {
 ### 9.1 常用命令
 
 ```bash
-cd "/Users/yy/Documents/3b1b 复刻"
+cd "$(git rev-parse --show-toplevel)"
 
 # 开发预览（会跑完整 TikZ 编译）
 npm run dev
